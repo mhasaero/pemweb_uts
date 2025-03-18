@@ -57,7 +57,7 @@
                                         <option value="1" {{ $absen->status_kehadiran === 1 ? 'selected' : '' }}>Hadir</option>
                                         <option value="0" {{ $absen->status_kehadiran === 0 ? 'selected' : '' }}>Alfa</option>
                                     </select>
-
+                                    @if (Auth::user()->type == 1)
                                     <button 
                                         type="submit" 
                                         class="px-2 py-1 rounded-md flex items-center gap-1
@@ -71,6 +71,7 @@
                                         </svg>
                                         Update
                                     </button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>
