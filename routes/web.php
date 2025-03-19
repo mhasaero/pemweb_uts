@@ -8,8 +8,13 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 
+Auth::routes();
+
 Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
 Route::put('/absensi/{nim}/{id_mk}/{tanggal}', [AbsensiController::class, 'update'])->name('absensi.update');
+
+Route::get('/absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
+Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');

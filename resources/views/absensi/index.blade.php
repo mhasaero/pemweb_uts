@@ -4,6 +4,37 @@
 <div class="container mx-auto px-4 py-8">
         <div class="bg-white rounded-lg shadow-md p-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-6">📊 Data Absensi Mahasiswa</h1>
+
+            <div class="mb-6 flex gap-4 items-center">
+                <form method="GET" action="{{ route('absensi.index') }}" class="flex items-center gap-3">
+                    <div class="w-64">
+                        <select 
+                            name="matakuliah" 
+                            onchange="this.form.submit()"
+                            class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none"
+                        >
+                            <option value="">Semua Mata Kuliah</option>
+                            @foreach($matakuliah as $mk)
+                                <option 
+                                    value="{{ $mk->id_mk }}" 
+                                    {{ request('matakuliah') == $mk->id_mk ? 'selected' : '' }}
+                                >
+                                    {{ $mk->nama_mk }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    @if(request('matakuliah'))
+                        <a 
+                            href="{{ route('absensi.index') }}" 
+                            class="text-red-500 hover:text-red-700"
+                        >
+                            Reset Filter
+                        </a>
+                    @endif
+                </form>
+            </div>
             
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
@@ -57,6 +88,7 @@
                                         <option value="1" {{ $absen->status_kehadiran === 1 ? 'selected' : '' }}>Hadir</option>
                                         <option value="0" {{ $absen->status_kehadiran === 0 ? 'selected' : '' }}>Alfa</option>
                                     </select>
+                                    @auth
                                     @if (Auth::user()->type == 1)
                                     <button 
                                         type="submit" 
@@ -72,6 +104,7 @@
                                         Update
                                     </button>
                                     @endif
+                                    @endauth
                                 </form>
                             </td>
                         </tr>

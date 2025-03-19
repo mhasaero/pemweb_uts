@@ -94,6 +94,13 @@
                                 </form>
                             </div>
                         </div>
+                        @auth
+                            @if(Auth::user()->type == 1)
+                            <div class="nav-item">
+                                <a class="nav-link" href="{{ route('absensi.create') }}">Input Absensi</a>
+                            </div>
+                            @endif
+                            @endauth
                         @endguest
                     </div>
                 </div>
